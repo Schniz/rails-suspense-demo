@@ -1,0 +1,15 @@
+<% sleep 1 %>
+<ul>
+  <%- post.comments.each do |comment| -%>
+    <li>
+      <%= comment.text %>
+      <%=
+        suspense(
+          fallback: ->() { "..." },
+          partial: "comment_date",
+          locals: { comment: comment }
+        )
+      %>
+    </li>
+  <% end %>
+</ul>
