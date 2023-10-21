@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def suspense(fallback:, partial:, **cfg)
+  def suspense(partial:, **cfg, &block)
     storage = controller.suspense
     hex = SecureRandom.uuid
     thread = Thread.new do
@@ -17,6 +17,7 @@ module ApplicationHelper
     end
     storage.promises.push thread
 
-    content_tag :"x-rails-suspense", fallback.(), data: { id: hex }
+    fallback = capture(&block)
+    content_tag :"x-rails-suspense", fallback, data: { id: hex }
   end
 end

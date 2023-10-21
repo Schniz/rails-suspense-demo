@@ -11,10 +11,6 @@
 
 <h2>Comments:</h2>
 
-<%=
-  suspense(
-    fallback: ->() { "Loading comments" },
-    partial: 'comments',
-    locals: { post: @post }
-  )
-%>
+<%= suspense(partial: 'comments', locals: { post: @post }) do %>
+  Loading comments...
+<% end %>

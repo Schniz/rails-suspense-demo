@@ -3,13 +3,9 @@
   <%- post.comments.each do |comment| -%>
     <li>
       <%= comment.text %>
-      <%=
-        suspense(
-          fallback: ->() { "..." },
-          partial: "comment_date",
-          locals: { comment: comment }
-        )
-      %>
+      <%= suspense(partial: "comment_date", locals: { comment: comment }) do %>
+        (loading date...)
+      <% end %>
     </li>
   <% end %>
 </ul>
